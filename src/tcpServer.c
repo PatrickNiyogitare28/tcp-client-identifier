@@ -6,8 +6,11 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+
+// declaring the server port
 #define PORT 4444
 int main(){
+	//Beting of setting up a tcp socketio server
 	int sockfd, ret;
 	 struct sockaddr_in serverAddr;
 	int newSocket;
@@ -21,6 +24,9 @@ int main(){
 		exit(1);
 	}
 	printf("[+]Server Socket is created.\n");
+	//end of setting up  a tcp socket server
+
+	//Begin of binding server to IP address and PORT
 	memset(&serverAddr, '\0', sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(PORT);
@@ -31,6 +37,9 @@ int main(){
 		exit(1);
 	}
 	printf("[+]Bind to port %d\n", 4444);
+	//Begin of binding server to IP address and PORT
+
+    //Listening to the client for any connection and connecting as well
 	if(listen(sockfd, 10) == 0){
 		printf("[+]Listening....\n");
 	}else{
@@ -45,12 +54,15 @@ int main(){
 		if((childpid = fork()) == 0){
 			close(sockfd);
 			while(1){
+				//recieving packets from the client
 				recv(newSocket, buffer, 1024, 0);
 				if(strcmp(buffer, ":exit") == 0){
 					printf("Disconnected from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
 					break;
 				}else{
 					printf("Client: %s\n", buffer);
+					
+					//sending packets to client
 					send(newSocket, buffer, strlen(buffer), 0);
 					bzero(buffer, sizeof(buffer));
 				}

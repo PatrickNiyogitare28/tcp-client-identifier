@@ -4,12 +4,13 @@
 #include<unistd.h>
 #include<sys/socket.h>
 #include<sys/types.h>
-// #include<Winsock2.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
 
+//defining the our server port
 #define PORT 4444
 int main(){
+    //Begin socketio client initialization
     int clientSocket, ret;
     struct sockaddr_in serverAddr;
     char buffer[1024];
@@ -21,6 +22,9 @@ int main(){
     }
 
     printf("[+] Client Socket is created. \n");
+    //End of socketio client initialization
+
+    //Begin of connectin cient to the server
     memset(&serverAddr, '\0', sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(PORT);
@@ -32,16 +36,22 @@ int main(){
         exit(1);
     }
     printf("[=]Connected to Server .\n");
+    //End of connecting to a server
+
+
     while(1){
         printf("Client: \t");
         scanf("%s", &buffer[0]);
+        //sending packets to a server
         send(clientSocket, buffer, strlen(buffer), 0);
-
+        
+        //Disconnecting client from server
         if(strcmp(buffer, ":exit") == 0){
             printf("[-]Disconnected from server .\n");
             exit(1);
         }
 
+        //receiving packets from server
         if(recv(clientSocket, buffer, 1024, 0) < 0){
             printf("[-]Error in receiving data. \n");
         }
