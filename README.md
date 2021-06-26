@@ -8,6 +8,8 @@ We have to run the server first tcpServer.c to allow clients to connect to our s
 To illustrate that packets can flow from client to server we will have to send a message from the client and our server will respond with the same message.
 The packets are able to flow in either directions, from client to server and vise versa. 
 
+<img src="https://github.com/PatrickNiyogitare28/tcp-client-identifier/blob/master/assets/screenshots/connection.png">
+
 ## Instructions
 You need a linux environment to be able to run the application due to the fact that some networking programming libraries of c we are using are found in Linux GCC.
 So to be able to run the program its good to have a linux environment(linux OS)
@@ -127,7 +129,7 @@ A deadlock will occur if both the client and the server are waiting for each oth
 ## Output images
 The client has connect to the server and the server is consoling that their a new tcp connection on the network
 
-
+<img src="https://github.com/PatrickNiyogitare28/tcp-client-identifier/blob/master/assets/screenshots/server-client.PNG">
 
 The client has sent a message (Hello) to a server and the server is responding with the same message to show that packets can flow in either direction from client - server and vice versa.
 
